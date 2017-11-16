@@ -1,0 +1,17 @@
+Fathom Python ML Task
+
+1. Continuously capture images from webcam
+    * (?) OpenCV
+    * (?) MIL
+    * (?) scikit-image
+2. Perform a series of computations on each frame
+    * (?) Pipeline-ish
+    * (?) map/reduce
+    2.1 Diagnostics to compute
+        * mean and standard deviation of the pixels in the GREEN channel
+        * D4sigma and centroid of each color channel (R,G,B) and direction
+        * The acquisition refresh rate and number of saturated pixels
+3. Classify each frame using a pre-trained deep learning model
+    * (?) ImageNet (https://keras.io/applications
+    * (?) scikit-image
+4. Display the information in real-time
