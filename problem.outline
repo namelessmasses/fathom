@@ -30,3 +30,4 @@ Notes:
         * centroid
             * http://aishack.in/tutorials/image-moments/
         * direction
+        * (?) Do calculations for these moments exist already in a Python imaging toolkit (OpenCV, scikit-image, etc.)?
