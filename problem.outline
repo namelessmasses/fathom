@@ -8,10 +8,24 @@ Fathom Python ML Task
     * (?) Pipeline-ish
     * (?) map/reduce
     2.1 Diagnostics to compute
-        * mean and standard deviation of the pixels in the GREEN channel
-        * D4sigma and centroid of each color channel (R,G,B) and direction
-        * The acquisition refresh rate and number of saturated pixels
+        2.1.1. mean and standard deviation of the pixels in the GREEN channel
+        2.1.2. D4sigma and centroid of each color channel (R,G,B) and direction
+        2.1.3. The acquisition refresh rate and number of saturated pixels
 3. Classify each frame using a pre-trained deep learning model
     * (?) ImageNet (https://keras.io/applications
     * (?) scikit-image
 4. Display the information in real-time
+
+Notes:
+
+2.1.1
+    * Separate image channels (RGB)
+    * For the GREEN channel
+        * Compute mean and standard deviation of the pixel values
+
+2.1.2
+    * Separate image channels (RGB)
+    * For every channel
+        * D4sigma
+        * centroid
+        * direction
