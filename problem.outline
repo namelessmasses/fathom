@@ -1,9 +1,12 @@
 Fathom Python ML Task
 
 1. Continuously capture images from webcam
-    * (?) OpenCV
-    * (?) MIL
-    * (?) scikit-image
+    * OpenCV
+        * Provides access to webcam
+    * PIL
+        * Filters and transforms but no access to camera
+    * skimage
+        * Similar to PIL; Filters and transforms but no access to camera
 2. Perform a series of computations on each frame
     * (?) Pipeline-ish
     * (?) map/reduce
@@ -13,7 +16,7 @@ Fathom Python ML Task
         2.1.3. The acquisition refresh rate and number of saturated pixels
 3. Classify each frame using a pre-trained deep learning model
     * (?) ImageNet (https://keras.io/applications
-    * (?) scikit-image
+    * (?) skimage
 4. Display the information in real-time
 
 Notes:
