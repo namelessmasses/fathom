@@ -3,6 +3,7 @@ Fathom Python ML Task
 1. Continuously capture images from webcam
     * OpenCV
         * Provides access to webcam
+	* Filters and transforms
     * PIL
         * Filters and transforms but no access to camera
     * skimage
