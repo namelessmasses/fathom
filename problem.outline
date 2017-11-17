@@ -1,37 +1,61 @@
-Fathom Python ML Task
+-*- mode: outline -*-
 
-1. Continuously capture images from webcam
-    * OpenCV
-        * Provides access to webcam
-	* Filters and transforms
-    * PIL
-        * Filters and transforms but no access to camera
-    * skimage
-        * Similar to PIL; Filters and transforms but no access to camera
-2. Perform a series of computations on each frame
-    * (?) Pipeline-ish
-    * (?) map/reduce
-    2.1 Diagnostics to compute
-        2.1.1. mean and standard deviation of the pixels in the GREEN channel
-        2.1.2. D4sigma and centroid of each color channel (R,G,B) and direction
-        2.1.3. The acquisition refresh rate and number of saturated pixels
-3. Classify each frame using a pre-trained deep learning model
-    * (?) ImageNet (https://keras.io/applications
-    * (?) skimage
-4. Display the information in real-time
+* Fathom Python ML Task
+
+* 1. Continuously capture images from webcam
+** OpenCV
+*** Provides access to webcam
+*** Filters and transforms
+** PIL
+*** Filters and transforms but no access to camera
+** skimage
+*** Similar to PIL; Filters and transforms but no access to camera
+
+* 2. Perform a series of computations on each frame
+** (?) Pipeline-ish
+** (?) map/reduce
+** 2.1 Diagnostics to compute
+*** 2.1.1. mean and standard deviation of the pixels in the GREEN channel
+**** 2.1.2. D4sigma and centroid of each color channel (R,G,B) and direction
+**** 2.1.3. The acquisition refresh rate and number of saturated pixels
+
+* 3. Classify each frame using a pre-trained deep learning model
+** (?) ImageNet (https://keras.io/applications
+** (?) skimage
+
+* 4. Display the information in real-time
 
 Notes:
 
-2.1.1
-    * Separate image channels (RGB)
-    * For the GREEN channel
-        * Compute mean and standard deviation of the pixel values
+* 2.1.1
+** Separate image channels (RGB)
+*** For the GREEN channel
+**** Compute mean and standard deviation of the pixel values
+***** np 'flattens' multi-dimensional arrays first
+****** np.mean(green) or green.mean()
+****** np.std(green) or green.std()
 
-2.1.2
-    * Separate image channels (RGB)
-    * For every channel
-        * D4sigma
-        * centroid
-            * http://aishack.in/tutorials/image-moments/
-        * direction
-        * (?) Do calculations for these moments exist already in a Python imaging toolkit (OpenCV, scikit-image, etc.)?
+* 2.1.2
+** Separate image channels (RGB)
+*** red = img[:,:,2]
+*** green = img[:,:,1]
+*** blue = img[:,:,0]
+** For every channel
+*** D4sigma
+*** centroid	
+**** http://aishack.in/tutorials/image-moments/
+*** direction
+**** (?) Do calculations for these moments exist already in a Python imaging toolkit (OpenCV, scikit-image, etc.)?
+
+* 2.1.3
+
+* Splitting Image Channels
+** Images are multi dimensional arrays; pixels of BGR
+*** Need slices of
+**** B: [:,:,0]
+**** G: [:,:,1]
+**** R: [:,:,2]
+
+* Mean and Std
+** ary.mean()
+** ary.std()
