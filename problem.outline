@@ -45,9 +45,19 @@ Notes:
 *** centroid	
 **** http://aishack.in/tutorials/image-moments/
 *** direction
-**** (?) Do calculations for these moments exist already in a Python imaging toolkit (OpenCV, scikit-image, etc.)?
+**** (?) Do calculations for these moments exist already in a Python imaging toolkit (OpenCV, skimage, etc.)?
 
 * 2.1.3
+** Acquisition Rate
+*** Timestamp of each frame
+*** differences between timestamps
+*** mean
+*** 1/mean
+** Number of Saturated Pixels
+*** hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+*** saturations = hsv[:,:,1]
+*** saturated = saturations.flatten() == 255
+*** saturated.sum()
 
 * Splitting Image Channels
 ** Images are multi dimensional arrays; pixels of BGR
