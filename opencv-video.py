@@ -4,6 +4,13 @@ import cv2
 import time
 import math
 
+from keras.applications.resnet50 import ResNet50
+from keras.preprocessing import image
+from keras.applications.resnet50 import preprocess_input, decode_predictions
+import numpy as np
+
+model = ResNet50(weights='imagenet')
+
 def displayResults(img, results):
     textRow = 10
     textRowSize = 20
@@ -11,7 +18,6 @@ def displayResults(img, results):
     # \todo determine where in the image text will appear and select a
     # color to contrast the image background.
     #
-    # \todo sort the keys
     keys = results.keys()
     keys.sort()
     for key in keys:
@@ -23,10 +29,6 @@ def displayResults(img, results):
                     (255, 255, 255))
         textRow += textRowSize
         
-
-# cv2.namedWindow('frame')
-# cv2.startWindowThread()
-
 cam = cv2.VideoCapture(0)
 last_ts = time.time()
 sum_acquisition_intervals = 0
@@ -99,6 +101,15 @@ while cam.isOpened():
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     saturated_pixel_count = (hsv[:,:,1].flatten() == 255).sum()
     results['8. Saturated Pixel Count'] = saturated_pixel_count
+
+    # \todo what is this (224, 224) magic with this classification
+    # model?
+    img_to_classify = cv2.resize(frame, (224, 224))
+    img_to_classify = np.expand_dims(img_to_classify, axis=0)
+    preds = model.predict(img_to_classify)
+
+    decoded_preds = decode_predictions(preds, top=3)[0]
+    results['9. Predicted'] = ' or '.join(['{}'.format(p[1]) for p in decoded_preds])
     
     displayResults(frame, results)
 
