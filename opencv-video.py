@@ -92,7 +92,7 @@ while cam.isOpened():
     results['6. Blue d4sx'] = blueD4s[0]
     results['6. Blue d4sy'] = blueD4s[1]
 
-    results['7. rate'] = '{:.3f}'.format(count / sum_acquisition_intervals)
+    results['7. rate (frames/sec)'] = '{:.3f}'.format(count / sum_acquisition_intervals)
 
     # Count the saturated pixels - any pixel in any channel that is saturated
     #saturated_pixel_count = len([1 for row in frame for col in range(len(row)) if (row[col] == 255).any()])
