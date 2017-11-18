@@ -2,6 +2,7 @@
 
 import cv2
 import time
+import math
 
 def displayResults(img, results):
     textRow = 10
@@ -40,8 +41,6 @@ while cam.isOpened():
     last_ts = this_ts
     sum_acquisition_intervals += delta_ts
     count += 1
-    results['7. rate'] = '{:.3f}'.format(count / sum_acquisition_intervals)
-
     results['1. Image dimensions'] = frame.shape[:2]
     
     # Split out RGB channels. OpenCV stores pixels in BGR order.
@@ -59,13 +58,42 @@ while cam.isOpened():
 
     def centroid(moments):
         return (int(moments['m10']/moments['m00']), int(moments['m01']/moments['m00']))
+
+    def d4sigma(moments, centroid = None):
+        if centroid == None:
+            centroid = centroid(moments)
+
+        sigma2x = moments['m20']/moments['m00'] - centroid[0] * centroid[0]
+        sigma2y = moments['m02']/moments['m00'] - centroid[1] * centroid[1]
+
+        d4sx = 4 * math.sqrt(sigma2x)
+        d4sy = 4 * math.sqrt(sigma2y)
+
+        return (d4sx, d4sy)
+        
     redMoments = cv2.moments(redChannel)
-    results['4. Centroid(red)'] = centroid(redMoments)
-    greenMoments = cv2.moments(greenChannel)
-    results['5. Centroid(green)'] = centroid(greenMoments)
-    blueMoments = cv2.moments(blueChannel)
-    results['6. Centroid(blue)'] = centroid(blueMoments)
+    redCentroid = centroid(redMoments)
+    redD4s = d4sigma(redMoments, redCentroid)
+    results['4. Red Centroid'] = redCentroid
+    results['4. Red d4sx'] = redD4s[0]
+    results['4. Red d4sy'] = redD4s[1]
     
+    greenMoments = cv2.moments(greenChannel)
+    greenCentroid = centroid(greenMoments)
+    greenD4s = d4sigma(greenMoments, greenCentroid)
+    results['5. Green Centroid'] = greenCentroid
+    results['5. Green d4sx'] = greenD4s[0]
+    results['5. Green d4sy'] = greenD4s[1]
+
+    blueMoments = cv2.moments(blueChannel)
+    blueCentroid = centroid(blueMoments)
+    blueD4s = d4sigma(blueMoments, blueCentroid)
+    results['6. Blue Centroid'] = blueCentroid
+    results['6. Blue d4sx'] = blueD4s[0]
+    results['6. Blue d4sy'] = blueD4s[1]
+
+    results['7. rate'] = '{:.3f}'.format(count / sum_acquisition_intervals)
+
     # Count the saturated pixels - any pixel in any channel that is saturated
     #saturated_pixel_count = len([1 for row in frame for col in range(len(row)) if (row[col] == 255).any()])
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)

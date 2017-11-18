@@ -12,8 +12,6 @@
 *** Similar to PIL; Filters and transforms but no access to camera
 
 * 2. Perform a series of computations on each frame
-** (?) Pipeline-ish
-** (?) map/reduce
 ** 2.1 Diagnostics to compute
 *** 2.1.1. mean and standard deviation of the pixels in the GREEN channel
 **** 2.1.2. D4sigma and centroid of each color channel (R,G,B) and direction
@@ -41,7 +39,14 @@ Notes:
 *** green = img[:,:,1]
 *** blue = img[:,:,0]
 ** For every channel
-*** D4sigma  
+*** D4sigma
+If my math is correct then sigma(x) and sigma(y) can be calculated using
+raw moments analogously to 1-dimension. In 1D sigma is M2/M0 - (M1/M0)^2.
+Deriving from first principles
+
+sigma^2(x) = M20/M00 - (M10/M00)^2
+sigma^2(y) = M02/M00 - (M01/M00)^2
+
 *** centroid	
 **** http://aishack.in/tutorials/image-moments/
 **** Using moments.
@@ -51,7 +56,6 @@ centroid = (m(1,0)/m(0,0), m(0,1)/m(0,0))
 ***** opencv
 moments = cv2.moments(singleChannel)
 centroid = (moments['m10']/moments['m00'], moments['m01']/moments['m00'])
-*** direction
 
 
 * 2.1.3
