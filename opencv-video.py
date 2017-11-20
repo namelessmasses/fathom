@@ -30,7 +30,7 @@ class ClassificationThread(threading.Thread):
     def getResults(self):
         self.resultsReadyEvent.wait()
         self.resultsReadyEvent.clear()
-        return results
+        return self.results
 
     def stop(self):
         self.running = True
