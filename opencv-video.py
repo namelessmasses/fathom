@@ -51,8 +51,8 @@ while cam.isOpened():
     blueChannel = frame[:,:,0]
 
     # Compute mean and std dev of the pixels in the green channel
-    results['2. mean(green)'] = '{:.3f}'.format(blueChannel.mean())
-    results['3. std(green)'] = '{:.3f}'.format(blueChannel.std())
+    results['2. mean(green)'] = '{:.3f}'.format(greenChannel.mean())
+    results['3. std(green)'] = '{:.3f}'.format(greenChannel.std())
 
     # Centroid for each channel - while we could use ndarray syntax
     # unrolling here and operating on the specific channels is
